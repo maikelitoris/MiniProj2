@@ -47,6 +47,8 @@ Entrar com **admin / admin** e abrir **ADMIN → Patrocinadores** ou **Especiali
 
 **Especialista:** título, nome, fotografia (link), especialidade (com sugestões de famílias), instituição, animais que acompanha, ORCID, nota biográfica (até 500 caracteres), email, página pessoal, se pode validar quizzes, ativo.
 
+Os dados ficam nas coleções **`patrocinadores`** e **`especialistas`**. Não se usam os nomes `sponsors` e `experts` porque a base de testes do livro, que é partilhada, já tem coleções com esses nomes criadas por outros alunos, com outros campos.
+
 A ligação aos animais é **N:N**: cada patrocinador ou especialista guarda a lista dos ids dos animais, e a API devolve-os preenchidos (`populate`) com o nome e o grupo.
 
 O logótipo e a fotografia são links, como as imagens dos animais no livro, porque a API não recebe ficheiros.

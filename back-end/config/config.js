@@ -8,8 +8,10 @@ module.exports = {
             quiz: 'quizzes',
             user: 'users',
             user_levels: "user_levels",
-            sponsor: "sponsors",
-            expert: "experts"
+            // Nomes próprios: a base de testes partilhada do livro já tem coleções
+            // "sponsors" e "experts" criadas por outros alunos, com outros campos.
+            sponsor: "patrocinadores",
+            expert: "especialistas"
         }
     },
     auth: {
