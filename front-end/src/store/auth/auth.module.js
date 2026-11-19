@@ -74,9 +74,11 @@ const actions = {
 export const mutations = {
   [AUTH_LOGIN_SUCCESS]: (state, data) => {
     state.token = data.token;
-    localStorage.STORAGE_ACCESS_TOKEN = data.token;
+    // Correção: o livro gravava em localStorage.STORAGE_ACCESS_TOKEN (a chave "STORAGE_ACCESS_TOKEN"),
+    // mas lia e apagava a chave "user_token"; ao recarregar a página, a sessão perdia-se.
+    localStorage.setItem(STORAGE_ACCESS_TOKEN, data.token);
     state.profile = data.profile;
-    localStorage.STORAGE_USER_PROFILE = JSON.stringify(data.profile);
+    localStorage.setItem(STORAGE_USER_PROFILE, JSON.stringify(data.profile));
   },
 
   [AUTH_LOGOUT_SUCCESS]: state => {

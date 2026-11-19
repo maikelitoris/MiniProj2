@@ -19,7 +19,8 @@
     />
 
     <!-- Theme CSS -->
-    <link href="css/animalec.css" rel="stylesheet" />
+    <!-- Correção: caminho absoluto, para o CSS carregar também em /admin/sponsors e noutras rotas com dois níveis -->
+    <link href="<%= BASE_URL %>css/animalec.css" rel="stylesheet" />
   </head>
 
   <body>    
