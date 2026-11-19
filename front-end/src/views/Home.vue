@@ -77,6 +77,22 @@
 
       </b-container>
     </section>
+    <!-- Tarefa 3.2: patrocinadores ativos (pedido público, não precisa de login) -->
+    <section class="page-section" id="sponsors" v-if="sponsors.length > 0">
+      <b-container>
+        <h4 class="page-section-heading text-center text-uppercase text-secondary mb-4">OS NOSSOS PATROCINADORES</h4>
+        <b-row class="justify-content-center">
+          <b-col v-for="s in sponsors" :key="s._id" cols="6" md="3" class="text-center mb-4">
+            <a :href="s.website || null" target="_blank" rel="noopener">
+              <img v-if="s.logo" :src="s.logo" :alt="s.name" style="max-height:80px; max-width:100%" />
+              <h5 v-else>{{ s.name }}</h5>
+            </a>
+            <div><b-badge :variant="levelVariant(s.level)">{{ s.level }}</b-badge></div>
+            <small v-if="s.message" class="text-muted">{{ s.message }}</small>
+          </b-col>
+        </b-row>
+      </b-container>
+    </section>
     <!-- Contact Section -->
     <section class="page-section" id="contacts">
       <div class="container">
@@ -233,6 +249,7 @@
 import { FETCH_ANIMALS } from "@/store/animals/animal.constants";
 import { FETCH_USERS } from "@/store/users/user.constants";
 import { SEND_EMAIL } from "@/store/constants";
+import sponsorService from "@/api/sponsor.service";
 import router from "@/router";
 import { mapGetters } from "vuex";
 
@@ -243,13 +260,17 @@ export default {
       name: "ricardo",
       email: "ricardo.queiros@gmail.com",
       subject: "teste",
-      message: "isto é um teste!"
+      message: "isto é um teste!",
+      sponsors: []
     };
   },
   computed: {
     ...mapGetters(["getMessage", "auth/isUserLoggedIn"])
   },
   methods: {
+    levelVariant(level) {
+      return { ouro: "warning", prata: "secondary", bronze: "dark" }[level] || "light";
+    },
     showRanking() {
       router.push({ name: "ranking" });
     },
@@ -263,6 +284,10 @@ export default {
     }
   },
   created() {
+    sponsorService.getPublicSponsors().then(
+      res => (this.sponsors = res.body || []),
+      () => (this.sponsors = [])
+    );
     if (this.isUserLoggedIn) {
       this.$store.dispatch(`animal/${FETCH_ANIMALS}`);
       this.$store.dispatch(`user/${FETCH_USERS}`);

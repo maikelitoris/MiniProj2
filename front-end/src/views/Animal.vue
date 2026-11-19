@@ -36,6 +36,15 @@
                     <b>Descrição:</b>
                     {{animal.description}}
                   </b-card-text>
+                  <!-- Tarefa 3.2: quem acompanha e quem apoia este animal -->
+                  <b-card-text v-if="experts.length">
+                    <b>Especialistas que acompanham:</b>
+                    <span v-for="e in experts" :key="e._id" class="mr-2">{{ e.title }} {{ e.name }} ({{ e.institution }})</span>
+                  </b-card-text>
+                  <b-card-text v-if="sponsors.length">
+                    <b>Patrocinado por:</b>
+                    <span v-for="s in sponsors" :key="s._id" class="mr-2">{{ s.name }}</span>
+                  </b-card-text>
                   <b-card-text>
                     <b>Comentários:</b>
                     <b-alert
@@ -98,6 +107,8 @@
 <script>
 import HeaderPage from "@/components/HeaderPage.vue";
 import { EDIT_ANIMAL } from "@/store/animals/animal.constants";
+import sponsorService from "@/api/sponsor.service";
+import expertService from "@/api/expert.service";
 import { mapGetters } from "vuex";
 export default {
   name: "Animal",
@@ -107,7 +118,9 @@ export default {
   data: function() {
     return {
       animal: "",
-      comment: ""
+      comment: "",
+      sponsors: [],
+      experts: []
     };
   },
   computed: {
@@ -191,6 +204,11 @@ export default {
   },
   created() {
     this.animal = this.getAnimalsById(this.$route.params.animalId);
+    // Tarefa 3.2: patrocinadores e especialistas ativos ligados a este animal
+    const id = this.$route.params.animalId;
+    const ofThisAnimal = list => (list || []).filter(x => (x.animals || []).some(a => (a._id || a) === id));
+    sponsorService.getPublicSponsors().then(res => (this.sponsors = ofThisAnimal(res.body)), () => {});
+    expertService.getPublicExperts().then(res => (this.experts = ofThisAnimal(res.body)), () => {});
   }
 };
 </script>

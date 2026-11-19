@@ -14,6 +14,11 @@
             <AdminOptionBox routeName="listQuizzes" iconName="file-alt"  title="Quizzes"/>
             <AdminOptionBox routeName="listQuestions" iconName="question-circle"  title="Questões"/>
           </b-card-group>
+          <!-- Tarefa 3.2: novas entidades -->
+          <b-card-group deck class="mt-3">
+            <AdminOptionBox routeName="listSponsors" iconName="hand-holding-heart" title="Patrocinadores"/>
+            <AdminOptionBox routeName="listExperts" iconName="user-graduate" title="Especialistas"/>
+          </b-card-group>
         </b-col>
         <b-col cols="4"></b-col>
       </b-row>
