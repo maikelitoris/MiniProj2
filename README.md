@@ -37,6 +37,8 @@ npm run serve        # http://localhost:8081
 ```
 Em versões recentes do Node.js (17 ou mais), o Vue CLI 4 precisa antes de `export NODE_OPTIONS=--openssl-legacy-provider` (Windows PowerShell: `$env:NODE_OPTIONS="--openssl-legacy-provider"`).
 
+Se o login **admin / admin** falhar, é porque a base partilhada do livro já não tem esse utilizador no formato do Animalec. Com o MongoDB local ligado, correr `node scripts/criar_admin.js` na pasta `back-end`.
+
 Entrar com **admin / admin** e abrir **ADMIN → Patrocinadores** ou **Especialistas**. Também se pode usar o Vue UI, como no capítulo A.1.1 do livro.
 
 ## O que foi acrescentado
