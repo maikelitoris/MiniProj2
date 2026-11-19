@@ -4,7 +4,7 @@
   "description": "API advanced book",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test tests/sponsors_experts.test.js",
     "start": "node app.js"
   },
   "author": "CFP, DGC",
@@ -37,5 +37,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.12",
     "nodemailer": "^6.3.1"
+  },
+  "devDependencies": {
+    "supertest": "^6.3.4"
   }
 }
